@@ -43,11 +43,3 @@ resource "aws_eks_addon" "kube_proxy_addon" {
   addon_name   = "kube-proxy"
   addon_version = "v1.27.1-eksbuild12"
 }
-
-output "endpoint" {
-  value = aws_eks_cluster.example.endpoint
-}
-
-output "kubeconfig-certificate-authority-data" {
-  value = aws_eks_cluster.example.certificate_authority[0].data
-}
