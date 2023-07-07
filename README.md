@@ -18,3 +18,9 @@ kubectl apply -f nginx-deployment.yml
 kubectl apply -f nginx-service.yml
 kubectl get pod
 ```
+
+### To get the IP of the Cluster nodes
+
+```
+kubectl get nodes -o wide |  awk {'print $1" " $2 " " $7'} | column -t
+```
