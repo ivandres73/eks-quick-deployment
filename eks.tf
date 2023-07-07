@@ -38,11 +38,15 @@ resource "aws_eks_addon" "vpc_cni_addon" {
 #   addon_version = "v1.10.1-eksbuild.1"
 # }
 
-# resource "aws_eks_addon" "kube_proxy_addon" {
-#   cluster_name = aws_eks_cluster.eks_cluster.name
-#   addon_name   = "kube-proxy"
-#   addon_version = "v1.27.1-eksbuild12"
-# }
+resource "aws_eks_addon" "kube_proxy_addon" {
+  cluster_name = aws_eks_cluster.eks_cluster.name
+  addon_name   = "kube-proxy"
+  addon_version = "v1.27.1-eksbuild.1"
+
+  depends_on = [
+    aws_eks_node_group.eks_node_group
+  ]
+}
 
 resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
@@ -54,6 +58,10 @@ resource "aws_eks_node_group" "eks_node_group" {
     desired_size = 1
     max_size     = 1
     min_size     = 1
+  }
+
+  remote_access {
+    ec2_ssh_key = "myKey"
   }
 
   # capacity_type = "SPOT" // this line dont let the node to join the node-group
