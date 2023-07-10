@@ -2,6 +2,10 @@
 
 Simple cluster with 1 EC2 node and ready to deploy a K8 Service
 
+## Modify variables.tf
+
+I'm using ids for my AWS Account, you should replace these with your own.
+
 ### To run TF scripts
 
 ```

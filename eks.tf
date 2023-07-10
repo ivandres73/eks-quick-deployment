@@ -3,11 +3,8 @@ resource "aws_eks_cluster" "eks_cluster" {
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
-    subnet_ids = [
-      "subnet-e866b3a5",
-      "subnet-5f767703"
-    ]
-    security_group_ids = ["sg-f8084baa"]
+    subnet_ids = var.eks_cluster_subnets
+    security_group_ids = var.eks_cluster_security_groups
 
     endpoint_private_access = true
     endpoint_public_access  = true
@@ -52,7 +49,7 @@ resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
   node_group_name = "group1"
   node_role_arn   = aws_iam_role.eks_node_role.arn
-  subnet_ids      = ["subnet-e866b3a5", "subnet-5f767703"]
+  subnet_ids      = var.eks_cluster_subnets
 
   scaling_config {
     desired_size = 1
@@ -61,7 +58,7 @@ resource "aws_eks_node_group" "eks_node_group" {
   }
 
   remote_access {
-    ec2_ssh_key = "myKey"
+    ec2_ssh_key = var.eks_node_group_key_pair
   }
 
   # capacity_type = "SPOT" // this line dont let the node to join the node-group
