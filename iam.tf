@@ -23,13 +23,9 @@ resource "aws_iam_role" "eks_cluster_role" {
   }
 }
 
-data "aws_iam_policy" "AmazonEKSClusterPolicy" {
-  arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-}
-
 resource "aws_iam_role_policy_attachment" "eks_cluster_role_attach" {
   role       = aws_iam_role.eks_cluster_role.name
-  policy_arn = data.aws_iam_policy.AmazonEKSClusterPolicy.arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
 }
 
 ////// NODES PERMISSIONS
@@ -65,4 +61,31 @@ resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy_attach" {
 resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly_attach" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.eks_node_role.name
+}
+
+////// AWS Load Balancer Controller PERMISSIONS
+resource "aws_iam_policy" "eks_lb_controller_policy" {
+  name        = "AWSLoadBalancerControllerIAMPolicy"
+  description = "allows it to make calls to create LBs on your behalf"
+  policy      = file("aws-lb-controller-policy.json")
+}
+
+resource "aws_iam_role" "eks_lb_controller_role" {
+    name = "AmazonEKSLoadBalancerControllerRole"
+
+  assume_role_policy = jsonencode({
+    Statement = [{
+      Action = "sts:AssumeRoleWithWebIdentity"
+      Effect = "Allow"
+      Principal = {
+        Federated = "arn:aws:iam::849096285120:oidc-provider/oidc.eks.region-code.amazonaws.com/id/*"
+      }
+    }]
+    Version = "2012-10-17"
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "eks_lb_controller_policy_attach" {
+  role       = aws_iam_role.eks_lb_controller_role.name
+  policy_arn = aws_iam_policy.eks_lb_controller_policy.arn
 }
