@@ -1,7 +1,7 @@
 //////  CLUSTER PERMISSIONS
 
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "eksClusterRole"
+  name        = "eksClusterRole"
   description = "Amazon EKS - Cluster role"
 
   assume_role_policy = jsonencode({
@@ -18,7 +18,7 @@ resource "aws_iam_role" "eks_cluster_role" {
   })
 
   tags = {
-    name = "eksClusterRole",
+    name      = "eksClusterRole",
     createdBy = "Ivan"
   }
 }

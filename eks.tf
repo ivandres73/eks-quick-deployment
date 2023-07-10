@@ -3,7 +3,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
-    subnet_ids = var.eks_cluster_subnets
+    subnet_ids         = var.eks_cluster_subnets
     security_group_ids = var.eks_cluster_security_groups
 
     endpoint_private_access = true
@@ -12,7 +12,7 @@ resource "aws_eks_cluster" "eks_cluster" {
   }
 
   kubernetes_network_config {
-    ip_family= "ipv4"
+    ip_family = "ipv4"
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
@@ -23,8 +23,8 @@ resource "aws_eks_cluster" "eks_cluster" {
 }
 
 resource "aws_eks_addon" "vpc_cni_addon" {
-  cluster_name = aws_eks_cluster.eks_cluster.name
-  addon_name   = "vpc-cni"
+  cluster_name  = aws_eks_cluster.eks_cluster.name
+  addon_name    = "vpc-cni"
   addon_version = "v1.12.6-eksbuild.2"
 }
 
@@ -36,8 +36,8 @@ resource "aws_eks_addon" "vpc_cni_addon" {
 # }
 
 resource "aws_eks_addon" "kube_proxy_addon" {
-  cluster_name = aws_eks_cluster.eks_cluster.name
-  addon_name   = "kube-proxy"
+  cluster_name  = aws_eks_cluster.eks_cluster.name
+  addon_name    = "kube-proxy"
   addon_version = "v1.27.1-eksbuild.1"
 
   depends_on = [
