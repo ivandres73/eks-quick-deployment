@@ -52,9 +52,9 @@ data:
       - system:masters
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2023-07-10T20:36:00Z"
+  creationTimestamp: "2023-07-11T20:30:32Z" #this value varies
   name: aws-auth
   namespace: kube-system
-  resourceVersion: "766"
-  uid: 68d3d8ec-265f-4300-9ea6-f1905f92fa1f
+  resourceVersion: "927"                    #this value varies
+  uid: 6bcf6fcd-6073-45dc-b588-fda5d78e9f07 #this value varies
 ```
