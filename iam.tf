@@ -78,7 +78,7 @@ resource "aws_iam_role" "eks_lb_controller_role" {
       Action = "sts:AssumeRoleWithWebIdentity"
       Effect = "Allow"
       Principal = {
-        Federated = "arn:aws:iam::849096285120:oidc-provider/oidc.eks.region-code.amazonaws.com/id/*"
+        Federated = "arn:aws:iam::849096285120:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/*"
       }
     }]
     Version = "2012-10-17"
