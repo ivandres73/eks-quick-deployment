@@ -52,9 +52,29 @@ data:
       - system:masters
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2023-07-11T20:30:32Z" #this value varies
+  creationTimestamp: "2023-07-12T20:16:44Z" #this value varies
   name: aws-auth
   namespace: kube-system
-  resourceVersion: "927"                    #this value varies
-  uid: 6bcf6fcd-6073-45dc-b588-fda5d78e9f07 #this value varies
+  resourceVersion: "892"                    #this value varies
+  uid: 2b98bfa1-29de-4120-9f74-dc25f69416f0 #this value varies
+```
+
+---
+
+### Installation of Load Balancer Controller
+
+1. 
+```sh
+kubectl apply -f k8-apps/aws-load-balancer-controller-service-account.yml
+```
+
+2. 
+```sh
+helm repo add eks https://aws.github.io/eks-charts
+helm repo update eks
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+  -n kube-system \
+  --set clusterName=eks-cluster \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller
 ```
