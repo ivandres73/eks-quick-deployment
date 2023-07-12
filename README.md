@@ -78,3 +78,10 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.create=false \
   --set serviceAccount.name=aws-load-balancer-controller
 ```
+
+3. add tags to subnets `kubernetes.io/role/elb = 1` if the subnet is public, and `kubernetes.io/role/internal-elb = 1` if private.
+
+4. 
+```
+kubectl apply -f 2048_full.yml
+```
