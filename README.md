@@ -10,8 +10,8 @@ In order to follow this guide, you should
 
 1. have basic knowledge in aws
 2. have basic knowledge in container-orchestration
-3. have [aws-cli](https://aws.amazon.com/cli/) installed
-4. have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) installed and configured
+3. have [aws-cli](https://aws.amazon.com/cli/) installed and configured
+4. have [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) installed
 5. have [helm](https://helm.sh/docs/intro/install/) installed
 6. have [terraform](https://developer.hashicorp.com/terraform/downloads) installed
 7. have a linux (debian-based) distro
